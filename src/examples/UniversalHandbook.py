@@ -13,6 +13,9 @@ res_list = nrn_uh_list()
 
 instructions = res_list["instructions"]
 
+for i in instructions:
+    print(i)
+
 full_details = []
 
 for i in range(len(instructions)):

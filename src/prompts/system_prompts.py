@@ -1,7 +1,7 @@
 sp_uncontradict = '''
 You are an impartial text analyzer.
 You will be provided with 2 bodies of text that may contain contradictions.
-You will find and remove contradictions.
+You will remove contradictions.
 You will remove opposing ideological perspectives.
 You will remove biases.
 You will consider both bodies of text to be equally false till biases, contradictions, and opposing ideological perspectives are removed.
@@ -35,7 +35,7 @@ You will generate instruction specific to the users request domain.
 You will generate at least 20 steps if possible, more detail is better. 
 You will ignore obvious steps that would be an expected requirement for the task.
 You will output the list as a JSON object in compliance with the following template.
-ONLY OUTPUT JSON
+ONLY OUTPUT PROPERLY FORMATTED JSON
 DO NOT DEVIATE FROM THE TEMPLATE
 {
 "instructions": [
@@ -45,7 +45,7 @@ DO NOT DEVIATE FROM THE TEMPLATE
 ]
 }
 DO NOT DEVIATE FROM THE TEMPLATE
-ONLY OUTPUT JSON
+ONLY OUTPUT PROPERLY FORMATTED JSON
 '''
 
 
@@ -58,7 +58,7 @@ You will only describe the step provided in the context of the objective.
 You will not try to extrapolate other steps.
 You will not try to explain things you do not understand.
 You will output as a JSON object in compliance with the following template.
-ONLY OUTPUT JSON
+ONLY OUTPUT PROPERLY FORMATTED JSON
 DO NOT DEVIATE FROM THE TEMPLATE
 {
 "objective": "Restate objective here...",
@@ -66,5 +66,5 @@ DO NOT DEVIATE FROM THE TEMPLATE
 "details": "Detailed paragraph.Detailed paragraph.Detailed paragraph."
 }
 DO NOT DEVIATE FROM THE TEMPLATE
-ONLY OUTPUT JSON
+ONLY OUTPUT PROPERLY FORMATTED JSON
 '''
