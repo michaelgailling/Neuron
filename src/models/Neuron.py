@@ -1,4 +1,5 @@
-from datetime import time
+import json
+import time
 
 import openai
 
@@ -16,9 +17,10 @@ openai.api_key = open_ai_key
 
 
 class Neuron:
-    def __init__(self, system_prompt: str, activation_thresh: int):
+    def __init__(self, system_prompt: str, activation_thresh: int = 3, json_output=False):
         self._system_prompt = system_prompt
         self._activation_thresh = activation_thresh
+        self._json_output = json_output
         # History acts as a state holder
         self.history = [{"role": "system", "content": system_prompt}]
 
@@ -68,6 +70,7 @@ class Neuron:
         dictionary with the "role" key set to "user" and the "content" key set to the context
         :type context_message: str
         """
+        print("New context added!")
         # The context prompt is like dendrites accepting input
         self.history.append({"role": "user", "content": context_message})
 
@@ -79,17 +82,28 @@ class Neuron:
         `self.history`. The message is extracted from the `resp` dictionary returned by the `openai.ChatCompletion.create()`
         method, specifically from the `"message"` key of the first element in the `"choices"` list.
         """
+
         while True:
+            print("Thinking!!!")
             try:
                 resp = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
                     messages=self.history
                 )
-            except:
-                print("OpenAI had a problem.")
+
+                res_mes = resp["choices"][0]["message"]["content"]
+
+                if self._json_output:
+                    resp_dict = json.loads(res_mes)
+                    return resp_dict
+
+                return res_mes
+            except Exception as e:
+                print("OpenAI had a problem. Retrying...")
+                print(e)
+                print(res_mes)
                 time.sleep(1)
                 continue
-            return resp["choices"][0]["message"]
 
     def __call__(self):
         """
@@ -98,11 +112,14 @@ class Neuron:
         :return: If the length of the `history` list is greater than the `_activation_thresh` attribute, then the `think()`
         method is called and its output is returned. Otherwise, `None` is returned.
         """
+        print("Checking Activation Threshold")
         # Calling behaves like an axon producing the current output state of the neuron
-        if len(self.history) > self._activation_thresh:
+        if len(self.history) >= self._activation_thresh:
+            print("Activation Threshold Reached")
             thought = self.think()
             # Clear the history and load default system prompt
             self.history = [{"role": "system", "content": self._system_prompt}]
+            print("Activation Threshold Reset, Sending State!")
             return thought
         return None
 
