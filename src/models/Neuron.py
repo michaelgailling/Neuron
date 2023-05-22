@@ -1,6 +1,7 @@
 import json
 import time
 
+import dirtyjson
 import openai
 
 from src.private.apikeys import open_ai_key
@@ -93,7 +94,7 @@ class Neuron:
                 res_mes = resp["choices"][0]["message"]["content"]
 
                 if self._json_output:
-                    resp_dict = json.loads(res_mes)
+                    resp_dict = json.loads(json.dumps(dirtyjson.loads(res_mes)))
                     return resp_dict
 
                 return res_mes
