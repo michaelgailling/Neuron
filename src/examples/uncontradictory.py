@@ -26,6 +26,7 @@ Body of text 2:
 Unrestricted freedom of speech is a dangerous concept that leads to the spread of harmful and divisive ideas, which can incite hatred, violence, and social unrest. Societies must impose certain limits on speech to protect the greater good and maintain social harmony. Hate speech, disinformation, and other forms of harmful expression have no place in a civilized society and should be prohibited by law. By doing so, we create a safer, more inclusive environment for all citizens, where ideas can be debated respectfully and without fear of harm or discrimination.
 '''
 
+
 nrn_uncon = Neuron(system_prompt=sp_uncontradict, activation_thresh=2)
 nrn_expl = Neuron(system_prompt=sp_explainer, activation_thresh=2)
 

@@ -1,3 +1,5 @@
+import json
+
 from src.models.Neuron import Neuron
 from src.prompts.system_prompts import sp_list, sp_detail
 
@@ -29,5 +31,5 @@ for i in range(len(instructions)):
     full_details.append(res)
 
 for fd in full_details:
-    print(fd)
+    print(json.dumps(fd, indent=4))
 
